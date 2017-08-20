@@ -1,6 +1,7 @@
-<?php
+﻿<?php
 $dir=(isset($_GET["dir"])?$_GET["dir"]:$dir="");
-$dirRoot=$_SERVER['DOCUMENT_ROOT'];
+$dirRoot=substr($_SERVER['SCRIPT_FILENAME'], 0, strripos($_SERVER['SCRIPT_FILENAME'], "/"));
+
 if($dir!=""){
   if($dir[0]=="/") $dir=substr($dir,1);
   $chars = preg_split('~/~', $dir);
@@ -27,7 +28,7 @@ foreach ($files as $value)
     {
       echo "<li>";
       if (is_dir($dirRoot."/".$dir."/".$value)){
-        echo "<a href=\"\\?dir=".$dir."/".$value."\">".$value."</a>";
+        echo "<a href=\"?dir=".$dir."/".$value."\">".$value."</a>";
       }else{
         echo $value."(".filesize($dirRoot."/".$dir."/".$value)." байт)";
       }
