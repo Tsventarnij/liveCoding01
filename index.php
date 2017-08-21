@@ -48,12 +48,13 @@ if(count(scandir($dirRoot))<12){
 if($dir!=""){
   if($dir[0]=="/") $dir=substr($dir,1);
   $chars = preg_split('~/~', $dir);
-  if($chars[count($chars)-1]=='.') {
-    unset($chars[count($chars)-2], $chars[count($chars)-1]);
+  $count = count($chars);
+  if($chars[$count-1]=='.') {
+    unset($chars[$count-2], $chars[$count-1]);
   }
   if(count($chars)>0){
-    if($chars[count($chars)-1]=='..') {
-      unset($chars[count($chars)-3], $chars[count($chars)-2], $chars[count($chars)-1]);
+    if($chars[$count-1]=='..') {
+      unset($chars[$count-3], $chars[$count-2], $chars[$count-1]);
     }
   }
   $dir=implode('/',$chars);
