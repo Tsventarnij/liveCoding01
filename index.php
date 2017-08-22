@@ -13,7 +13,7 @@ if(count(scandir($dirRoot))<12){
    $tempFold=[];
    for($i=0; $i<13; $i++)
    {
-     $rand=rand(1, count($aNameFold))-1;	
+     $rand=rand(1, count($aNameFold))-1;
      if($aNameFold[$rand]!=="")  mkdir($aNameFold[$rand]);
      else $i--;
      $tempFold[]=$aNameFold[$rand];
@@ -22,9 +22,9 @@ if(count(scandir($dirRoot))<12){
    $i="";
    $t=0;
    foreach($aNameFold as $nameFold){
-    
+
       if($nameFold!=""){
-	
+
       	if($i==""){
 	   $rand=rand(0,count($tempFold)-1);
 	   mkdir($tempFold[$rand]."/".$nameFold);
@@ -52,28 +52,31 @@ if($dir!=""){
   if($chars[$count-1]=='.') {
     unset($chars[$count-2], $chars[$count-1]);
   }
-  if(count($chars)>0){
+  if(count($chars)>0&&isset($chars[$count-1])){
     if($chars[$count-1]=='..') {
       unset($chars[$count-3], $chars[$count-2], $chars[$count-1]);
     }
   }
   $dir=implode('/',$chars);
 }
-$files = scandir($dirRoot."/".$dir);
+$files = scandir($dirRoot."/".$dir, SCANDIR_SORT_NONE);
 echo "<p>Текущий каталог: ".$dirRoot."/".$dir."</p>";
 echo "<ul>";
 foreach ($files as $value)
  {
     preg_match("/[\d]+/", $value,$match);
+    echo "<li>";
     if($match==NULL)
     {
-      echo "<li>";
       if (is_dir($dirRoot."/".$dir."/".$value)){
         echo "<a href=\"?dir=".$dir."/".$value."\">".$value."</a>";
       }else{
         echo $value."(".filesize($dirRoot."/".$dir."/".$value)." байт)";
       }
+    }else{
+      echo $value;
     }
+
   echo "</li>";
 }
 echo "</ul>";
